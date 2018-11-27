@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+/*注：
+ * frmt : 表示执行的是NSLog函数
+ * ##__VA_ARGS__ 不定参数
+ */
+
 #ifdef DEBUG
 #define FLog(frmt, ...) Log_objc(frmt, ##__VA_ARGS__)
 #else
@@ -26,8 +31,6 @@ func : fnct     \
 line : __LINE__     \
 format : (frmt), ##__VA_ARGS__]
 
-//fprintf(stderr,"\nFunction:%s Line:%d Content:%s\n", __FUNCTION__, __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String])
-
 
 
 
@@ -39,5 +42,11 @@ format : (frmt), ##__VA_ARGS__]
            func:(const char*)func
            line:(NSUInteger)line
          format:(NSString *)format, ... NS_FORMAT_FUNCTION(4,5);
+
+
+// 外部调用将产生编译错误
++(instancetype) alloc __attribute__((unavailable("alloc not available, call sharedInstance instead")));
+-(instancetype) init __attribute__((unavailable("init not available, call sharedInstance instead")));
++(instancetype) new __attribute__((unavailable("new not available, call sharedInstance instead")));
 
 @end

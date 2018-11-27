@@ -15,6 +15,8 @@
 		1959423321ACEEEC00453BFC /* FLogConsoleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1959423221ACEEEC00453BFC /* FLogConsoleManager.m */; };
 		1959423621AD3D7200453BFC /* FLogFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1959423521AD3D7200453BFC /* FLogFileManager.m */; };
 		1959423921AD586D00453BFC /* FLogLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1959423821AD586D00453BFC /* FLogLevel.m */; };
+		1959423C21AD5FE500453BFC /* FlogController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1959423B21AD5FE500453BFC /* FlogController.m */; };
+		19667AA721AD6C1700D3A223 /* logIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19667AA621AD6C1700D3A223 /* logIcon.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,9 @@
 		1959423521AD3D7200453BFC /* FLogFileManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLogFileManager.m; sourceTree = "<group>"; };
 		1959423721AD586D00453BFC /* FLogLevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLogLevel.h; sourceTree = "<group>"; };
 		1959423821AD586D00453BFC /* FLogLevel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLogLevel.m; sourceTree = "<group>"; };
+		1959423A21AD5FE500453BFC /* FlogController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlogController.h; sourceTree = "<group>"; };
+		1959423B21AD5FE500453BFC /* FlogController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlogController.m; sourceTree = "<group>"; };
+		19667AA621AD6C1700D3A223 /* logIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = logIcon.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +100,9 @@
 				1959423521AD3D7200453BFC /* FLogFileManager.m */,
 				1959423721AD586D00453BFC /* FLogLevel.h */,
 				1959423821AD586D00453BFC /* FLogLevel.m */,
+				1959423A21AD5FE500453BFC /* FlogController.h */,
+				1959423B21AD5FE500453BFC /* FlogController.m */,
+				19667AA621AD6C1700D3A223 /* logIcon.xcassets */,
 			);
 			path = FLogLevel;
 			sourceTree = "<group>";
@@ -156,6 +164,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19667AA721AD6C1700D3A223 /* logIcon.xcassets in Resources */,
 				1959422621ACEB6E00453BFC /* LaunchScreen.storyboard in Resources */,
 				1959422321ACEB6E00453BFC /* Assets.xcassets in Resources */,
 			);
@@ -174,6 +183,7 @@
 				1959422921ACEB6E00453BFC /* main.m in Sources */,
 				1959423921AD586D00453BFC /* FLogLevel.m in Sources */,
 				1959421B21ACEB6D00453BFC /* AppDelegate.m in Sources */,
+				1959423C21AD5FE500453BFC /* FlogController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

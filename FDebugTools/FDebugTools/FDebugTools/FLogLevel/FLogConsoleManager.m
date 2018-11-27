@@ -20,9 +20,13 @@
     static FLogConsoleManager * _instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _instance = [FLogConsoleManager new];
+        _instance = [[super alloc] initUnique];
     });
     return _instance;
+}
+
+- (instancetype)initUnique{
+   return [super init];
 }
 
 
@@ -58,11 +62,11 @@
         resultCString = [msgResult cStringUsingEncoding:NSUTF8StringEncoding];
     }
     
-    printf("☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️BEGIN☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️☠️");
+    printf("\n***********☠️BEGIN☠️***********\n");
     printf("%s",resultCString);
-    printf("👻👻👻👻👻👻👻👻👻👻👻👻👻👻👻END👻👻👻👻👻👻👻👻👻👻👻👻👻👻");
+    printf("\n-----------👻END👻-----------\n");
     
-    //将log写入文件
+    //将log写入文件，注意读写的线程的安全问题
     
     
     

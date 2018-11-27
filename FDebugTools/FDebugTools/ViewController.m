@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "FLogLevel.h"
 #import "FLogConsoleManager.h"
 
 @interface ViewController ()
@@ -28,6 +29,11 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     FLog(@"%@",@"viewWillAppear");
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.view addSubview:[FLogLevel shareInstance]];
+//    [ maxshow];
 }
 
 

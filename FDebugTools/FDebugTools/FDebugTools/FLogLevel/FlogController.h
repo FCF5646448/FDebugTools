@@ -1,5 +1,5 @@
 //
-//  FLogLevel.h
+//  FlogController.h
 //  FDebugTools
 //
 //  Created by 冯才凡 on 2018/11/27.
@@ -8,14 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FLogLevel : UIWindow
-+ (instancetype)shareInstance;
+NS_ASSUME_NONNULL_BEGIN
 
-- (void)minShow;
-
-- (void)maxshow;
-
-- (void)hide;
+@interface FlogController : UIViewController
 
 @end
 
+NS_ASSUME_NONNULL_END
