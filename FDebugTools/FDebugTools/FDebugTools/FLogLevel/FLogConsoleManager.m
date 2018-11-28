@@ -7,6 +7,7 @@
 //
 
 #import "FLogConsoleManager.h"
+#import "FLogFileManager.h"
 
 @interface FLogConsoleManager()
 
@@ -68,7 +69,7 @@
     
     //将log写入文件，注意读写的线程的安全问题
     
-    
+    [[FLogFileManager shareInstance] writeLogContent:msgResult];
     
 }
 

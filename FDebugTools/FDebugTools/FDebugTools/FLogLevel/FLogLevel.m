@@ -27,12 +27,12 @@
 }
 
 - (instancetype)init {
-    CGRect baseRect = (CGRect){0,0,[UIScreen mainScreen].bounds.size.width,[UIScreen mainScreen].bounds.size.height*2.0/3};
-    CGRect minRect = CGRectMake([UIScreen mainScreen].bounds.size.width-100, [UIScreen mainScreen].bounds.size.height-40-100, 40, 40);
+    CGRect baseRect = (CGRect){0,kScreenHeight*1.0/3.0,kScreenWidth,kScreenHeight*2.0/3.0};
+    CGRect minRect = CGRectMake(kScreenWidth-100, kScreenHeight-40-100, 100, 100);
     
-    self = [super initWithFrame:baseRect];
+    self = [super initWithFrame:minRect];
     if (self) {
-        self.backgroundColor = [UIColor clearColor];//[ colorWithAlphaComponent:1];
+        self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
         self.defaultRect = baseRect;
         self.originRect = minRect;
         self.windowLevel = UIWindowLevelStatusBar + 100;
@@ -43,10 +43,12 @@
 }
 
 - (void)maxshow {
+    [self makeKeyAndVisible];
     self.frame = self.defaultRect;
 }
 
 - (void)minShow {
+    [self makeKeyAndVisible];
     self.frame = self.originRect;
 }
 
@@ -56,7 +58,7 @@
 }
 
 - (void)hide {
-    
+    [self resignKeyWindow];
 }
 
 

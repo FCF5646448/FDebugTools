@@ -20,8 +20,12 @@
     [super viewDidLoad];
     
     self.title = @"Tools";
+    FLog(@"viewDidLoad");
     
-    FLog(@"xxxx");
+    int i =0;
+    while (i < 10) {
+        FLog(@"xx:%d",i++);
+    }
 //    FLog(@"viewDidLoad");
     
 }
@@ -32,8 +36,7 @@
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self.view addSubview:[FLogLevel shareInstance]];
-//    [ maxshow];
+    [[FLogLevel shareInstance] maxshow];
 }
 
 

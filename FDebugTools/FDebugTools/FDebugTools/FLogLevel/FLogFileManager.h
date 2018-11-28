@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)clearLog;
 
+- (NSString *)readLog;
+
 //+ (instancetype)alloc __attribute__((unavailable("alloc not available, call sharedInstance instead")));
 //- (instancetype)init __attribute__((unavailable("init not availbale, call shareInstance instead")));
 //+ (instancetype)new __attribute__((unvailable("new not availbale, call shareInstance instead")));

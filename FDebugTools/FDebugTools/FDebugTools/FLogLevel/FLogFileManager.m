@@ -29,8 +29,9 @@
     return dateStr;
 }
 
+//所有日志z写在一个文件里。
 - (NSString *)path{
-    return [NSString stringWithFormat:@"%@/temp/%@",NSTemporaryDirectory(),[self dateStr]];
+    return [NSString stringWithFormat:@"%@temp/%@",NSTemporaryDirectory(),@"flog.txt"];
 }
 
 - (BOOL)isExitsAtPath:(NSString *)path{
@@ -48,7 +49,7 @@
     return isSuccess;
 }
 
-- (BOOL)writeLogContent:(NSObject *)content {
+- (BOOL)writeLogContent:(NSString *)content {
     if ([self createDirectoryAtPath:[self path] error:nil]) {
         return [self writeLog:[self path] content:content];
     }else{
@@ -59,6 +60,14 @@
 
 - (BOOL)clearLog {
     return [self removeItemAtPath:[self path] error:nil];
+}
+
+//
+- (NSString *)readLog {
+    NSString *resultStr = [NSString stringWithContentsOfFile:[self path] encoding:NSUTF8StringEncoding error:nil];
+    
+    NSLog(@"path:%@ \n resultStr is %@\n", [self path],resultStr);
+    return resultStr;
 }
 
 
