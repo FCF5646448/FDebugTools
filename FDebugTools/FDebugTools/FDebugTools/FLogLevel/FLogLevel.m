@@ -37,6 +37,10 @@
         self.originRect = minRect;
         self.windowLevel = UIWindowLevelStatusBar + 100;
         FlogController * vc = [FlogController new];
+        __weak typeof(FLogLevel *) weakSelf = self;
+        vc.callback = ^{
+            [weakSelf minShow];
+        };
         self.rootViewController = vc;
     }
     return self;
@@ -45,11 +49,13 @@
 - (void)maxshow {
     [self makeKeyAndVisible];
     self.frame = self.defaultRect;
+    [self setNeedsLayout];
 }
 
 - (void)minShow {
     [self makeKeyAndVisible];
     self.frame = self.originRect;
+    [self setNeedsLayout];
 }
 
 - (void)layoutSubviews {

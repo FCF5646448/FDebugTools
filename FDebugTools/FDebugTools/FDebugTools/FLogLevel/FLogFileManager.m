@@ -8,8 +8,10 @@
 
 #import "FLogFileManager.h"
 
-@interface FLogFileManager()
+static char *queueName = "FLogFileManagerQueue";
 
+@interface FLogFileManager()
+@property (nonatomic, strong)dispatch_queue_t queue;
 @end
 
 @implementation FLogFileManager
@@ -17,21 +19,23 @@
     static FLogFileManager * instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        instance = [FLogFileManager new];
+        instance = [[FLogFileManager alloc] init];
     });
     return instance;
 }
 
-- (NSString *)dateStr {
-    NSDateFormatter * dformatter = [NSDateFormatter new];
-    dformatter.dateFormat = @"yyyy-MM-dd";
-    NSString * dateStr = [dformatter stringFromDate:[NSDate new]];
-    return dateStr;
+- (instancetype)init {
+    if (self = [super init]) {
+        _queue = dispatch_queue_create(queueName, DISPATCH_QUEUE_CONCURRENT); //创建一个并行队列
+    }
+    return self;
 }
 
 //所有日志z写在一个文件里。
 - (NSString *)path{
-    return [NSString stringWithFormat:@"%@temp/%@",NSTemporaryDirectory(),@"flog.txt"];
+    NSString * docPath = NSTemporaryDirectory();
+    NSString* txtPath = [docPath stringByAppendingPathComponent:@"flog.txt"];
+    return txtPath;
 }
 
 - (BOOL)isExitsAtPath:(NSString *)path{
@@ -44,7 +48,7 @@
     if ([manager fileExistsAtPath:path isDirectory:&isSuccess]) {
         isSuccess = YES;
     }else{
-        isSuccess = [manager createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
+        isSuccess = [manager createFileAtPath:path contents:nil attributes:nil];//注意不能用创建文件夹的函数创建
     }
     return isSuccess;
 }
@@ -64,45 +68,35 @@
 
 //
 - (NSString *)readLog {
-    NSString *resultStr = [NSString stringWithContentsOfFile:[self path] encoding:NSUTF8StringEncoding error:nil];
-    
-    NSLog(@"path:%@ \n resultStr is %@\n", [self path],resultStr);
+    __block NSString * resultStr;
+    NSData * data = [[NSFileManager defaultManager] contentsAtPath:[self path]];
+    resultStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     return resultStr;
 }
 
 
-- (BOOL)writeLog:(NSString *)path content:(NSObject *)content {
+- (BOOL)writeLog:(NSString *)path content:(NSString *)content {
     if (!content) {
         [NSException raise:@"写入内容为空" format:@"写入内容不能为空"];
         return NO;
     }
-    if ([self isExitsAtPath:path]){
-        if ([content isKindOfClass:[NSMutableArray class]]) {
-            [(NSMutableArray *)content writeToFile:path atomically:YES];
-        }else if ([content isKindOfClass:[NSArray class]]) {
-            [(NSArray *)content writeToFile:path atomically:YES];
-        }else if ([content isKindOfClass:[NSMutableData class]]) {
-            [(NSMutableData *)content writeToFile:path atomically:YES];
-        }else if ([content isKindOfClass:[NSData class]]) {
-            [(NSData *)content writeToFile:path atomically:YES];
-        }else if ([content isKindOfClass:[NSMutableDictionary class]]) {
-            [(NSMutableDictionary *)content writeToFile:path atomically:YES];
-        }else if ([content isKindOfClass:[NSDictionary class]]) {
-            [(NSDictionary *)content writeToFile:path atomically:YES];
-        }else if ([content isKindOfClass:[NSJSONSerialization class]]) {
-            [(NSDictionary *)content writeToFile:path atomically:YES];
-        }else if ([content isKindOfClass:[NSMutableString class]]) {
-            [[((NSString *)content) dataUsingEncoding:NSUTF8StringEncoding] writeToFile:path atomically:YES];
-        }else if ([content isKindOfClass:[NSString class]]) {
-            [[((NSString *)content) dataUsingEncoding:NSUTF8StringEncoding] writeToFile:path atomically:YES];
+    __block BOOL isSuccess;
+    dispatch_barrier_sync(_queue, ^{
+        if ([self isExitsAtPath:path]){
+            NSFileHandle * fileHandle = [NSFileHandle fileHandleForUpdatingAtPath:path];
+            [fileHandle seekToEndOfFile]; //将字节跳到文件末尾
+            [fileHandle writeData:[((NSString *)content) dataUsingEncoding:NSUTF8StringEncoding]];
+            [fileHandle closeFile];
+            isSuccess = YES;
         }else{
-            [NSException raise:@"非法的文件内容" format:@"文件类型%@异常，无法被处理。", NSStringFromClass([content class])];
-            return NO;
+            NSError * error;
+            isSuccess = [content writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&error];
+            if (error) {
+                NSLog(@"%@", error.localizedDescription);
+            }
         }
-    }else{
-        return NO;
-    }
-    return YES;
+    });
+    return isSuccess;
 }
 
 - (BOOL)removeItemAtPath:(NSString *)path error:(NSError *__autoreleasing *)error {

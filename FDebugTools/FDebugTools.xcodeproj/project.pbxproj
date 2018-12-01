@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		190EC06321AF7D630017C9FF /* UIButton+Extention.m in Sources */ = {isa = PBXBuildFile; fileRef = 190EC06221AF7D630017C9FF /* UIButton+Extention.m */; };
 		1959421B21ACEB6D00453BFC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1959421A21ACEB6D00453BFC /* AppDelegate.m */; };
 		1959421E21ACEB6D00453BFC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1959421D21ACEB6D00453BFC /* ViewController.m */; };
 		1959422321ACEB6E00453BFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1959422221ACEB6E00453BFC /* Assets.xcassets */; };
@@ -20,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		190EC06121AF7D630017C9FF /* UIButton+Extention.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+Extention.h"; sourceTree = "<group>"; };
+		190EC06221AF7D630017C9FF /* UIButton+Extention.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Extention.m"; sourceTree = "<group>"; };
 		1959421621ACEB6D00453BFC /* FDebugTools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FDebugTools.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1959421921ACEB6D00453BFC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1959421A21ACEB6D00453BFC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -87,6 +90,8 @@
 			isa = PBXGroup;
 			children = (
 				1959423021ACEBD700453BFC /* FLogLevel */,
+				190EC06121AF7D630017C9FF /* UIButton+Extention.h */,
+				190EC06221AF7D630017C9FF /* UIButton+Extention.m */,
 			);
 			path = FDebugTools;
 			sourceTree = "<group>";
@@ -179,6 +184,7 @@
 			files = (
 				1959421E21ACEB6D00453BFC /* ViewController.m in Sources */,
 				1959423621AD3D7200453BFC /* FLogFileManager.m in Sources */,
+				190EC06321AF7D630017C9FF /* UIButton+Extention.m in Sources */,
 				1959423321ACEEEC00453BFC /* FLogConsoleManager.m in Sources */,
 				1959422921ACEB6E00453BFC /* main.m in Sources */,
 				1959423921AD586D00453BFC /* FLogLevel.m in Sources */,

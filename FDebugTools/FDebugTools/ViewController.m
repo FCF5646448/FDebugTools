@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "FLogLevel.h"
 #import "FLogConsoleManager.h"
+#import "UIButton+Extention.h"
 
 @interface ViewController ()
 
@@ -27,6 +28,13 @@
         FLog(@"xx:%d",i++);
     }
 //    FLog(@"viewDidLoad");
+    
+    
+    UIButton * btn = [UIButton createBtnTitle:@"shabi" btnAction:^{
+        NSLog(@"xxxx");
+    }];
+    
+    [self.view addSubview:btn];
     
 }
 

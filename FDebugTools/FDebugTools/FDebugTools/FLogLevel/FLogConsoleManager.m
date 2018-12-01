@@ -63,14 +63,15 @@
         resultCString = [msgResult cStringUsingEncoding:NSUTF8StringEncoding];
     }
     
-    printf("\n***********☠️BEGIN☠️***********\n");
-    printf("%s",resultCString);
-    printf("\n-----------👻END👻-----------\n");
-    
     //将log写入文件，注意读写的线程的安全问题
-    
-    [[FLogFileManager shareInstance] writeLogContent:msgResult];
+    BOOL isSuccess = [[FLogFileManager shareInstance] writeLogContent:msgResult];
+    if (isSuccess) {
+        printf("写入成功\n");
+    }else{
+        printf("写入失败\n");
+    }
     
 }
+
 
 @end

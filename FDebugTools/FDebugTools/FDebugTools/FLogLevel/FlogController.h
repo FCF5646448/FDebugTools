@@ -10,8 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FlogController : UIViewController
+typedef void(^returnBtnAction)(void);
 
+@interface FlogController : UIViewController
+@property (nonatomic, copy)returnBtnAction callback;
 @end
 
 NS_ASSUME_NONNULL_END
