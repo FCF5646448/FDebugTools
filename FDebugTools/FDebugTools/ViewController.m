@@ -31,7 +31,7 @@
     
     
     UIButton * btn = [UIButton createBtnTitle:@"shabi" btnAction:^{
-        NSLog(@"xxxx");
+        FLog(@"%@",@"按钮点击");
     }];
     
     [self.view addSubview:btn];

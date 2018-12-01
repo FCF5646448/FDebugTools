@@ -71,7 +71,8 @@
     [self.view addSubview:_contentSc];
     
     _logTV = [[UITextView alloc] initWithFrame:(CGRect){0,0,w,_contentSc.frame.size.height}];
-    _logTV.text = @"xxxxxxxxxxxxxxxxxx";
+    _logTV.text = @"日志打印：";
+    _logTV.layoutManager.allowsNonContiguousLayout = NO;
     [_contentSc addSubview:_logTV];
     _logTV.backgroundColor = [UIColor clearColor];
     
@@ -81,8 +82,12 @@
     _setTV.delegate = self;
     _setTV.dataSource = self;
     
-    
-    
+    __weak typeof(FlogController *)weakself = self;
+    [FLogFileManager shareInstance].fileDidChanged = ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakself readLog];
+        });
+    };
     
 }
 
@@ -119,6 +124,7 @@
 //读取文件，并监听文件/文件夹的变化
 - (void)readLog {
     self.logTV.text = [[FLogFileManager shareInstance] readLog];
+    [self.logTV scrollRangeToVisible:NSMakeRange(self.logTV.text.length, 1)];
 }
 
 

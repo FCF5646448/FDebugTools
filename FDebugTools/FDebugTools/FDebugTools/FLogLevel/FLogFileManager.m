@@ -12,6 +12,8 @@ static char *queueName = "FLogFileManagerQueue";
 
 @interface FLogFileManager()
 @property (nonatomic, strong)dispatch_queue_t queue;
+@property (nonatomic, strong)dispatch_source_t source;
+@property (nonatomic, assign)NSInteger lastLength; //最后字节
 @end
 
 @implementation FLogFileManager
@@ -27,6 +29,7 @@ static char *queueName = "FLogFileManagerQueue";
 - (instancetype)init {
     if (self = [super init]) {
         _queue = dispatch_queue_create(queueName, DISPATCH_QUEUE_CONCURRENT); //创建一个并行队列
+        [self startMonitorFile];
     }
     return self;
 }
@@ -89,6 +92,7 @@ static char *queueName = "FLogFileManagerQueue";
             [fileHandle closeFile];
             isSuccess = YES;
         }else{
+            //第一次写入文件
             NSError * error;
             isSuccess = [content writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&error];
             if (error) {
@@ -101,6 +105,43 @@ static char *queueName = "FLogFileManagerQueue";
 
 - (BOOL)removeItemAtPath:(NSString *)path error:(NSError *__autoreleasing *)error {
     return [[NSFileManager defaultManager] removeItemAtPath:path error:error];
+}
+
+- (void)startMonitorFile {
+    
+    NSURL *directoryURL = [NSURL URLWithString:[self path]];
+    int const fd =
+    open([[directoryURL path] fileSystemRepresentation], O_EVTONLY); //O_EVTONLY：仅为事件通知请求的描述符 notifications only */
+    if (fd < 0) {
+        NSLog(@"Unable to open the path = %@", [directoryURL path]);
+        return;
+    }
+    dispatch_source_t source =
+    dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE, fd,
+                           DISPATCH_VNODE_WRITE,
+                           DISPATCH_TARGET_QUEUE_DEFAULT);
+    __weak typeof(FLogFileManager *)weakself = self;
+    dispatch_source_set_event_handler(source, ^() {
+        unsigned long const type = dispatch_source_get_data(source);
+        switch (type) {
+            case DISPATCH_VNODE_WRITE: {
+                NSLog(@"目录内容改变!!!\n");
+                weakself.fileDidChanged();
+                break;
+            }
+            default:
+                break;
+        }
+    });
+    dispatch_source_set_cancel_handler(source, ^{
+        close(fd);
+    });
+    self.source = source;
+    dispatch_resume(self.source);
+}
+
+- (void)stopManager {
+    dispatch_cancel(self.source);
 }
 
 @end
