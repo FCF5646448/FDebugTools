@@ -19,6 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     
     self.title = @"Tools";
     FLog(@"viewDidLoad");
@@ -27,15 +28,22 @@
     while (i < 10) {
         FLog(@"xx:%d",i++);
     }
-//    FLog(@"viewDidLoad");
-    
-    
-    UIButton * btn = [UIButton createBtnTitle:@"shabi" btnAction:^{
-        FLog(@"%@",@"按钮点击");
+    //
+    UIButton * btn = [UIButton createBtnTitle:@"test" andFrame:(CGRect){50,50,100,44} btnAction:^{
+        FLog(@"按钮点击测试");
     }];
-    
     [self.view addSubview:btn];
     
+    UIButton * btn1 = [UIButton createBtnTitle:@"show" andFrame:(CGRect){200,50,100,44} btnAction:^{
+        [[FLogLevel shareInstance] minShow];
+    }];
+    
+    [self.view addSubview:btn1];
+    
+    UIButton * btn2 = [UIButton createBtnTitle:@"hide" andFrame:(CGRect){50,100,100,44} btnAction:^{
+        [[FLogLevel shareInstance] hide];
+    }];
+    [self.view addSubview:btn2];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -43,9 +51,6 @@
     FLog(@"%@",@"viewWillAppear");
 }
 
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [[FLogLevel shareInstance] minShow];
-}
 
 
 @end

@@ -110,7 +110,8 @@
 }
 
 - (void)hide {
-    [self resignKeyWindow];
+    self.hidden = YES;
+    [[UIApplication sharedApplication].keyWindow makeKeyAndVisible];
 }
 
 

@@ -11,7 +11,7 @@
 
 来看下当前Demo的效果图:
 
-![](./screenshots/loglevel.jpg)
+![](./screenshots/loglevel.jpeg)
 
 ##### 01、FLogConsoleManager 基础打印类
 ###### 首先对于系统的NSLog，它是一个很耗性能的方法[NSLog耗性能原因](http://blog.sunnyxx.com/2014/04/22/objc_dig_nslog/)，所以在release模式下，是不应该使用的，而小工具也是无需在release模式下展示的。所以使用
@@ -137,5 +137,24 @@ dispatch_source 事件源，可以捕捉系统底层事件发生。可以查看�
 }
 ```
 
-OK，基本日志系统就告一段落了，后续持续更新优化。如果您喜欢或者觉得有帮助请给个小❤️❤️吧！
+##### 03、使用
+
+使用只要将FDebugTools文件夹导入就好，
+日志打印直接使用：
+```Objective-C
+FLog(@"viewDidLoad");
+//或
+FLog(@"%@",@"viewWillAppear");
+```
+显示窗口
+```Objective-C
+[[FLogLevel shareInstance] minShow];
+```
+隐藏窗口
+```Objective-C
+[[FLogLevel shareInstance] hide];
+```
+
+OK，基本日志系统就告一段落了，后续持续更新优化。
+如果您喜欢或者觉得有帮助请给个小❤️❤️吧！
 

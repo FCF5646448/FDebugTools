@@ -76,6 +76,8 @@
 		1959421821ACEB6D00453BFC /* FDebugTools */ = {
 			isa = PBXGroup;
 			children = (
+				1975168921B51FC80086E2CC /* UIButton+Extention.h */,
+				1975168821B51FC70086E2CC /* UIButton+Extention.m */,
 				1959422F21ACEBD700453BFC /* FDebugTools */,
 				1959421921ACEB6D00453BFC /* AppDelegate.h */,
 				1959421A21ACEB6D00453BFC /* AppDelegate.m */,
@@ -92,8 +94,6 @@
 		1959422F21ACEBD700453BFC /* FDebugTools */ = {
 			isa = PBXGroup;
 			children = (
-				1975168921B51FC80086E2CC /* UIButton+Extention.h */,
-				1975168821B51FC70086E2CC /* UIButton+Extention.m */,
 				1959423021ACEBD700453BFC /* FLogLevel */,
 			);
 			path = FDebugTools;

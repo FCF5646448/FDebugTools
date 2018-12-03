@@ -12,9 +12,9 @@
 static NSString * key = @"btnAction";
 
 @implementation UIButton (Extention)
-+ (UIButton *)createBtnTitle:(NSString *)title btnAction:(btnAction)actionCallback {
++ (UIButton *)createBtnTitle:(NSString *)title andFrame:(CGRect)frame btnAction:(btnAction)actionCallback {
     UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(100, 100, 100, 44);
+    btn.frame = frame;
     btn.backgroundColor = [UIColor redColor];
     [btn setTitle:title forState:UIControlStateNormal];
     [btn addTarget:btn action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];

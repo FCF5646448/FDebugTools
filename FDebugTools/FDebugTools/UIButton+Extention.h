@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void(^btnAction)(void);
 
 @interface UIButton (Extention)
-+ (UIButton *)createBtnTitle:(NSString *)title btnAction:(btnAction)actionCallback;
++ (UIButton *)createBtnTitle:(NSString *)title andFrame:(CGRect)frame btnAction:(btnAction)actionCallback;
 @end
 
 NS_ASSUME_NONNULL_END
