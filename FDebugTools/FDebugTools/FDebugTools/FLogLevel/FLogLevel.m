@@ -37,12 +37,17 @@
         self.originRect = minRect;
         self.windowLevel = UIWindowLevelStatusBar + 100;
         FlogController * vc = [FlogController new];
+        vc.originRect = minRect;
         __weak typeof(FLogLevel *) weakSelf = self;
         vc.callback = ^(VCCallBackType type) {
             if (type == min) {
                 [weakSelf minShow];
             }else if (type == max) {
                 [weakSelf maxshow];
+            }else if (type == move) {
+                [weakSelf changeOrigin];
+            }else if (type == movend) {
+                [weakSelf movendOrigin];
             }
         };
         self.rootViewController = vc;
@@ -62,6 +67,41 @@
     self.frame = self.originRect;
     ((FlogController *)self.rootViewController).iconBtn.hidden = NO;
     [self setNeedsLayout];
+}
+
+//一定是缩小的时候才出发
+- (void)changeOrigin {
+    [self makeKeyAndVisible];
+    self.originRect = ((FlogController *)self.rootViewController).originRect;
+    self.frame = self.originRect;
+    [self setNeedsLayout];
+}
+
+- (void)movendOrigin {
+    CGRect rect = self.originRect;
+    if (rect.origin.x < kScreenWidth/2.0 && rect.origin.x > 0) {
+        rect.origin.x = 5;
+    }
+    
+    if (rect.origin.x >= kScreenWidth/2.0 &&  rect.origin.x < (kScreenWidth - 5 - 50)) {
+        rect.origin.x = (kScreenWidth - 5 - 50);
+    }
+    
+    if (rect.origin.y < 64) {
+        rect.origin.y = 64;
+    }
+    
+    if (rect.origin.y > kScreenHeight - 50 - 60 ) {
+        rect.origin.y = kScreenHeight - 50 - 60;
+    }
+    
+    [UIView animateWithDuration:0.38 animations:^{
+        self.originRect = rect;
+        self.frame = self.originRect;
+        ((FlogController *)self.rootViewController).originRect = self.originRect;
+        [self setNeedsLayout];
+    }];
+    
 }
 
 - (void)layoutSubviews {

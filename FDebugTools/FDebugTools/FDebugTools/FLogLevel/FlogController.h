@@ -8,11 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+#define kScreenWidth [UIScreen mainScreen].bounds.size.width
+#define kScreenHeight [UIScreen mainScreen].bounds.size.height
+
 NS_ASSUME_NONNULL_BEGIN
 
 typedef enum : NSUInteger {
     min = 0,
     max = 1,
+    move = 3,
+    movend = 4, //y拖动结束
 } VCCallBackType;
 
 typedef void(^returnBtnAction)(VCCallBackType type);
@@ -22,6 +27,8 @@ typedef void(^returnBtnAction)(VCCallBackType type);
 @property (nonatomic, copy)returnBtnAction callback;
 
 @property (nonatomic, strong) UIButton * iconBtn;
+
+@property (nonatomic, assign) CGRect originRect;
 
 @end
 

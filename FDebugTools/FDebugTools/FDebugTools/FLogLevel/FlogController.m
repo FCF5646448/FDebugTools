@@ -99,15 +99,6 @@
     };
     
     
-    _iconBtn= [UIButton buttonWithType:UIButtonTypeCustom];
-    _iconBtn.frame = self.view.bounds;
-    _iconBtn.backgroundColor = UIColor.whiteColor;
-    [_iconBtn setImage:[UIImage imageNamed:@"console"] forState:UIControlStateNormal];
-    _iconBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    [_iconBtn addTarget:self action:@selector(iconBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_iconBtn];
-    
-    
     _clearBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _clearBtn.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.7];
     _clearBtn.frame = CGRectMake(w - 60, self.logTV.frame.size.height - 60, 44, 44);
@@ -118,6 +109,17 @@
     _clearBtn.layer.masksToBounds = YES;
     
     
+    //缩小时的按钮
+    _iconBtn= [UIButton buttonWithType:UIButtonTypeCustom];
+    _iconBtn.frame = self.view.bounds;
+    _iconBtn.backgroundColor = UIColor.whiteColor;
+    [_iconBtn setImage:[UIImage imageNamed:@"console"] forState:UIControlStateNormal];
+    _iconBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    [_iconBtn addTarget:self action:@selector(iconBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_iconBtn];
+    
+    UIPanGestureRecognizer * pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+    [_iconBtn addGestureRecognizer:pan];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -132,6 +134,41 @@
     self.setTV.frame = (CGRect){w,0,w,_contentSc.frame.size.height};
     
     self.clearBtn.frame = CGRectMake(w - 60, self.logTV.frame.size.height - 60, 44, 44);
+    
+}
+
+- (void)handlePan:(UIPanGestureRecognizer *)recognizer {
+    [recognizer.view.superview bringSubviewToFront:recognizer.view];
+    
+    //移动中
+    CGPoint p = [recognizer translationInView:self.iconBtn]; //在keywindow上的位置
+    CGRect originF = self.originRect;
+    if (originF.origin.x >= 0 || originF.origin.x + originF.size.width <= kScreenWidth ) {
+        originF.origin.x += p.x;
+    }
+    if (originF.origin.y >= 0 || originF.origin.y + originF.size.height <= kScreenHeight) {
+        originF.origin.y += p.y;
+    }
+    
+    NSLog(@"x:%f,y:%f", originF.origin.x,originF.origin.y);
+    
+    self.originRect = originF;
+    
+    [recognizer setTranslation:CGPointZero inView:[UIApplication sharedApplication].keyWindow];
+    
+    if (self.callback) {
+        self.callback(move);
+    }
+    if (recognizer.state == UIGestureRecognizerStateChanged) {
+        self.iconBtn.enabled = NO;
+        
+    }else if (recognizer.state == UIGestureRecognizerStateEnded) {
+        //移动结束
+        self.iconBtn.enabled = YES;
+        if (self.callback) {
+            self.callback(movend);
+        }
+    }
     
 }
 

@@ -56,7 +56,7 @@
     format.dateFormat = @"yyyy-MM-dd HH:mm:ss.SSS";
     NSString * timeStr = [format stringFromDate:[NSDate new]];
     
-    NSString * msgResult = [NSString stringWithFormat:@"\nclass:%@:\n func:%@\n line:%ld\n time:%@\n %@\n\n",fileStr,funcStr,line,timeStr,msg];
+    NSString * msgResult = [NSString stringWithFormat:@"\n class:%@: [line:%ld]\n func:%@\n  time:%@\n %@\n\n",fileStr,line,funcStr,timeStr,msg];
     
     const char * resultCString = NULL;
     if ([msgResult canBeConvertedToEncoding:NSUTF8StringEncoding]) {
