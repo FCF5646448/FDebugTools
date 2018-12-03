@@ -6,8 +6,12 @@
 
 * 目标：写一个类似小程序在调试模式下的实时控制台信息。
 * 功能：
-	* 1、实时显示当前Log；
-	* 2、展示基本的配置信息：cookie、IP、网络状态等
+  * 1、实时显示当前Log；
+  * 2、展示基本的配置信息：cookie、IP、网络状态等
+
+来看下当前Demo的效果图:
+
+![](./screenshots/loglevel.jpg)
 
 ##### 01、FLogConsoleManager 基础打印类
 ###### 首先对于系统的NSLog，它是一个很耗性能的方法[NSLog耗性能原因](http://blog.sunnyxx.com/2014/04/22/objc_dig_nslog/)，所以在release模式下，是不应该使用的，而小工具也是无需在release模式下展示的。所以使用
