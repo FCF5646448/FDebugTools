@@ -28,18 +28,22 @@
 
 - (instancetype)init {
     CGRect baseRect = (CGRect){0,kScreenHeight*1.0/3.0,kScreenWidth,kScreenHeight*2.0/3.0};
-    CGRect minRect = CGRectMake(kScreenWidth-100, kScreenHeight-40-100, 100, 100);
+    CGRect minRect = CGRectMake(kScreenWidth-60, kScreenHeight-40-60, 50, 50);
     
     self = [super initWithFrame:minRect];
     if (self) {
-        self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+        self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.7];
         self.defaultRect = baseRect;
         self.originRect = minRect;
         self.windowLevel = UIWindowLevelStatusBar + 100;
         FlogController * vc = [FlogController new];
         __weak typeof(FLogLevel *) weakSelf = self;
-        vc.callback = ^{
-            [weakSelf minShow];
+        vc.callback = ^(VCCallBackType type) {
+            if (type == min) {
+                [weakSelf minShow];
+            }else if (type == max) {
+                [weakSelf maxshow];
+            }
         };
         self.rootViewController = vc;
     }
@@ -49,12 +53,14 @@
 - (void)maxshow {
     [self makeKeyAndVisible];
     self.frame = self.defaultRect;
+    ((FlogController *)self.rootViewController).iconBtn.hidden = YES;
     [self setNeedsLayout];
 }
 
 - (void)minShow {
     [self makeKeyAndVisible];
     self.frame = self.originRect;
+    ((FlogController *)self.rootViewController).iconBtn.hidden = NO;
     [self setNeedsLayout];
 }
 

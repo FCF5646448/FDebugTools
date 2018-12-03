@@ -24,7 +24,9 @@ typedef void(^FLogFileManagerBlock)(void);
 
 - (BOOL)writeLogContent:(NSString *)content;
 
-- (BOOL)clearLog;
+- (BOOL)removeLog;
+
+- (void)clearLog;
 
 - (NSString *)readLog;
 

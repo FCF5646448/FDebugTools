@@ -18,6 +18,7 @@
 		1959423921AD586D00453BFC /* FLogLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1959423821AD586D00453BFC /* FLogLevel.m */; };
 		1959423C21AD5FE500453BFC /* FlogController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1959423B21AD5FE500453BFC /* FlogController.m */; };
 		19667AA721AD6C1700D3A223 /* logIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19667AA621AD6C1700D3A223 /* logIcon.xcassets */; };
+		1975168721B512820086E2CC /* IPTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1975168621B512820086E2CC /* IPTool.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,8 @@
 		1959423A21AD5FE500453BFC /* FlogController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlogController.h; sourceTree = "<group>"; };
 		1959423B21AD5FE500453BFC /* FlogController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlogController.m; sourceTree = "<group>"; };
 		19667AA621AD6C1700D3A223 /* logIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = logIcon.xcassets; sourceTree = "<group>"; };
+		1975168521B512820086E2CC /* IPTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IPTool.h; sourceTree = "<group>"; };
+		1975168621B512820086E2CC /* IPTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPTool.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +111,8 @@
 				1959423A21AD5FE500453BFC /* FlogController.h */,
 				1959423B21AD5FE500453BFC /* FlogController.m */,
 				19667AA621AD6C1700D3A223 /* logIcon.xcassets */,
+				1975168521B512820086E2CC /* IPTool.h */,
+				1975168621B512820086E2CC /* IPTool.m */,
 			);
 			path = FLogLevel;
 			sourceTree = "<group>";
@@ -190,6 +195,7 @@
 				1959423921AD586D00453BFC /* FLogLevel.m in Sources */,
 				1959421B21ACEB6D00453BFC /* AppDelegate.m in Sources */,
 				1959423C21AD5FE500453BFC /* FlogController.m in Sources */,
+				1975168721B512820086E2CC /* IPTool.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,7 +330,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3T49A8WRJ5;
+				DEVELOPMENT_TEAM = ADX9ZP8Q93;
 				INFOPLIST_FILE = FDebugTools/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -342,7 +348,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3T49A8WRJ5;
+				DEVELOPMENT_TEAM = ADX9ZP8Q93;
 				INFOPLIST_FILE = FDebugTools/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (

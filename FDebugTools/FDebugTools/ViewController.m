@@ -44,7 +44,7 @@
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [[FLogLevel shareInstance] maxshow];
+    [[FLogLevel shareInstance] minShow];
 }
 
 

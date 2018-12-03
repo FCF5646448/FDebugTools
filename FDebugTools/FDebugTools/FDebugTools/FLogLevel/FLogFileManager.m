@@ -65,11 +65,16 @@ static char *queueName = "FLogFileManagerQueue";
     }
 }
 
-- (BOOL)clearLog {
+- (BOOL)removeLog {
     return [self removeItemAtPath:[self path] error:nil];
 }
 
-//
+- (void)clearLog {
+    NSFileHandle * fileHandle = [NSFileHandle fileHandleForWritingAtPath:[self path]];
+    [fileHandle truncateFileAtOffset:0]; //清空文件
+}
+
+
 - (NSString *)readLog {
     __block NSString * resultStr;
     NSData * data = [[NSFileManager defaultManager] contentsAtPath:[self path]];
@@ -86,7 +91,7 @@ static char *queueName = "FLogFileManagerQueue";
     __block BOOL isSuccess;
     dispatch_barrier_sync(_queue, ^{
         if ([self isExitsAtPath:path]){
-            NSFileHandle * fileHandle = [NSFileHandle fileHandleForUpdatingAtPath:path];
+            NSFileHandle * fileHandle = [NSFileHandle fileHandleForWritingAtPath:path];
             [fileHandle seekToEndOfFile]; //将字节跳到文件末尾
             [fileHandle writeData:[((NSString *)content) dataUsingEncoding:NSUTF8StringEncoding]];
             [fileHandle closeFile];
@@ -119,14 +124,17 @@ static char *queueName = "FLogFileManagerQueue";
     dispatch_source_t source =
     dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE, fd,
                            DISPATCH_VNODE_WRITE,
-                           DISPATCH_TARGET_QUEUE_DEFAULT);
+                           DISPATCH_TARGET_QUEUE_DEFAULT); //创建事件源
     __weak typeof(FLogFileManager *)weakself = self;
-    dispatch_source_set_event_handler(source, ^() {
+    dispatch_source_set_event_handler(source, ^() { //监听信号回调
+        __strong typeof(FLogFileManager *)strongSelf = weakself;
         unsigned long const type = dispatch_source_get_data(source);
         switch (type) {
             case DISPATCH_VNODE_WRITE: {
                 NSLog(@"目录内容改变!!!\n");
-                weakself.fileDidChanged();
+                if (strongSelf.fileDidChanged){
+                    strongSelf.fileDidChanged();
+                }
                 break;
             }
             default:
