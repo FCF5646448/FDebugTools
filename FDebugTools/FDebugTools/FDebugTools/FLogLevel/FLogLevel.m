@@ -60,6 +60,7 @@
     self.frame = self.defaultRect;
     ((FlogController *)self.rootViewController).iconBtn.hidden = YES;
     [self setNeedsLayout];
+    [((FlogController *)self.rootViewController) readLog];
 }
 
 - (void)minShow {

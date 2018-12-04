@@ -30,6 +30,8 @@ typedef void(^returnBtnAction)(VCCallBackType type);
 
 @property (nonatomic, assign) CGRect originRect;
 
+- (void)readLog;
+
 @end
 
 NS_ASSUME_NONNULL_END

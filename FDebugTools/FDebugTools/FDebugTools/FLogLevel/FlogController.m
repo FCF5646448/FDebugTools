@@ -77,6 +77,7 @@
     
     _logTV = [[UITextView alloc] initWithFrame:(CGRect){0,0,w,_contentSc.frame.size.height}];
     _logTV.text = @"日志打印：";
+    _logTV.editable = false;
     _logTV.layoutManager.allowsNonContiguousLayout = NO;
     [_contentSc addSubview:_logTV];
     _logTV.backgroundColor = [UIColor clearColor];
