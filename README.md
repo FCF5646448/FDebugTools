@@ -11,7 +11,7 @@
 
 来看下当前Demo的效果图:
 
-![](./screenshots/loglevel.jpeg)
+![](./screenshots/loglevel.png)
 
 ##### 01、FLogConsoleManager 基础打印类
 ###### 首先对于系统的NSLog，它是一个很耗性能的方法[NSLog耗性能原因](http://blog.sunnyxx.com/2014/04/22/objc_dig_nslog/)，所以在release模式下，是不应该使用的，而小工具也是无需在release模式下展示的。所以使用
@@ -25,7 +25,7 @@
 ```
 
 ###### 宏的使用与说明
-知识点：
+知识点：__attribute__ 
 * `__VA_ARGS__`  可变参数的宏，宏前面加上##的作用在于，当可变参数的个数为0时，这里的##起到把前面多余的","去掉,否则会编译出错。
 * `__FILE__`  宏在预编译时会替换成当前的源文件名
 * `__LINE__` 宏在预编译时会替换成当前的行号
@@ -60,7 +60,7 @@ line : __LINE__     \
 format : (frmt), ##__VA_ARGS__]
 ```
 
-##### 02、文件管理类FLogFileManager
+##### 02、文件管理类FLogFileManager  (暂时弃用，会有一定卡顿)
 ###### 文件安全性保证应该是多读单写的性质。另外需要了解的知识点有：
 知识点：
 * FileManager是对文件的操作，比如创建、移动、删除等
@@ -134,6 +134,51 @@ dispatch_source 事件源，可以捕捉系统底层事件发生。可以查看�
     });
     self.source = source;
     dispatch_resume(self.source);
+}
+```
+##### 02、内存缓存，解决缓存过多卡顿问题
+```Objective-C
+//将日志缓存到Arr里，写操作使用dispatch_barrier_async规避不安全问题
+@property (nonatomic, strong)NSMutableArray<NSString *> * logArr;
+@property (nonatomic, strong)dispatch_queue_t syncQueue; //数据操作方法 (凡涉及更改数组中元素的操作，使用异步派发+栅栏块；读取数据使用 同步派发+并行队列)
+```
+写入
+```Objective-C
+dispatch_barrier_async(_syncQueue, ^{
+        NSString * fileStr = [[NSString stringWithUTF8String:file] lastPathComponent]; //file拿到的是文件路径
+        NSString * funcStr = [NSString stringWithUTF8String:func];
+        NSDateFormatter * format = [NSDateFormatter new];
+        format.dateFormat = @"yyyy-MM-dd HH:mm:ss.SSS";
+        NSString * timeStr = [format stringFromDate:[NSDate new]];
+        
+        NSString * msgResult = [NSString stringWithFormat:@"\n class:%@: [line:%ld]\n func:%@\n  time:%@\n %@\n\n",fileStr,line,funcStr,timeStr,msg];
+        //数量大于10就删除第一条
+        if (self.logArr.count >= 10) {
+            [self.logArr removeObjectAtIndex:0];
+        }
+        
+        [self.logArr addObject:[NSString stringWithFormat:@"%@\n",msgResult]];
+        
+        if (self.logDidChanged){
+            self.logDidChanged();
+        }
+    });
+    
+```
+//对NSMutableArray的操作都应该考虑安全性问题
+```Objective-C
+- (NSMutableArray<NSString *> *)getLogs {
+    __block NSMutableArray<NSString *> * tempArr;
+    dispatch_sync(_syncQueue, ^{
+        tempArr = [self.logArr mutableCopy];
+    });
+    return tempArr;
+}
+
+- (void)clearLog {
+    dispatch_barrier_async(_syncQueue, ^{
+        [self.logArr removeAllObjects];
+    });
 }
 ```
 

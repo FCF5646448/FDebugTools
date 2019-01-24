@@ -19,6 +19,7 @@
 		19667AA721AD6C1700D3A223 /* logIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19667AA621AD6C1700D3A223 /* logIcon.xcassets */; };
 		1975168721B512820086E2CC /* IPTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1975168621B512820086E2CC /* IPTool.m */; };
 		1975168A21B51FC80086E2CC /* UIButton+Extention.m in Sources */ = {isa = PBXBuildFile; fileRef = 1975168821B51FC70086E2CC /* UIButton+Extention.m */; };
+		19761E7A21F95EC600B4DBC3 /* Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 19761E7921F95EC600B4DBC3 /* Tool.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,8 @@
 		1975168621B512820086E2CC /* IPTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPTool.m; sourceTree = "<group>"; };
 		1975168821B51FC70086E2CC /* UIButton+Extention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Extention.m"; sourceTree = "<group>"; };
 		1975168921B51FC80086E2CC /* UIButton+Extention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Extention.h"; sourceTree = "<group>"; };
+		19761E7821F95EC600B4DBC3 /* Tool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tool.h; sourceTree = "<group>"; };
+		19761E7921F95EC600B4DBC3 /* Tool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tool.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +116,8 @@
 				19667AA621AD6C1700D3A223 /* logIcon.xcassets */,
 				1975168521B512820086E2CC /* IPTool.h */,
 				1975168621B512820086E2CC /* IPTool.m */,
+				19761E7821F95EC600B4DBC3 /* Tool.h */,
+				19761E7921F95EC600B4DBC3 /* Tool.m */,
 			);
 			path = FLogLevel;
 			sourceTree = "<group>";
@@ -190,6 +195,7 @@
 				1959421E21ACEB6D00453BFC /* ViewController.m in Sources */,
 				1959423621AD3D7200453BFC /* FLogFileManager.m in Sources */,
 				1959423321ACEEEC00453BFC /* FLogConsoleManager.m in Sources */,
+				19761E7A21F95EC600B4DBC3 /* Tool.m in Sources */,
 				1959422921ACEB6E00453BFC /* main.m in Sources */,
 				1959423921AD586D00453BFC /* FLogLevel.m in Sources */,
 				1959421B21ACEB6D00453BFC /* AppDelegate.m in Sources */,
@@ -331,8 +337,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ADX9ZP8Q93;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = FDebugTools/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -349,8 +358,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ADX9ZP8Q93;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = FDebugTools/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

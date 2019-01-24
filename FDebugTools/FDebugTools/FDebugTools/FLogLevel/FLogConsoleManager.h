@@ -33,9 +33,10 @@ format : (frmt), ##__VA_ARGS__]
 
 
 
+typedef void(^FLogConsoleManagerBlock)(void);
 
 @interface FLogConsoleManager : NSObject
-
+@property (nonatomic, copy)FLogConsoleManagerBlock logDidChanged;
 + (instancetype)shareInstance;
 
 - (void)logFile:(const char*)file
@@ -43,6 +44,8 @@ format : (frmt), ##__VA_ARGS__]
            line:(NSUInteger)line
          format:(NSString *)format, ... NS_FORMAT_FUNCTION(4,5);
 
+- (NSMutableArray<NSString *> *)getLogs;
+- (void)clearLog;
 
 // 外部调用将产生编译错误
 +(instancetype) alloc __attribute__((unavailable("alloc not available, call sharedInstance instead")));
